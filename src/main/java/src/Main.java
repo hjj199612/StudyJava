@@ -6,7 +6,6 @@ import java.util.*;
 public class Main extends Thread {
 
     public static void main(String[] args) {
-
         String tenant = "T20190823000160";
         System.out.println(String.format("%02d", Math.abs(tenant.hashCode() / 8 % 32)));
         System.out.println(Math.abs(tenant.hashCode() % 8));

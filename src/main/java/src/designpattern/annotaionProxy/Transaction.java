@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value={METHOD,CONSTRUCTOR, TYPE})
-@Inherited
+//@Inherited
 public @interface Transaction {
 
 }
