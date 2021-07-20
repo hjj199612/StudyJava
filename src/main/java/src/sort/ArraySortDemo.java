@@ -2,7 +2,6 @@ package src.sort;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -143,7 +142,6 @@ public class ArraySortDemo {
             for (int j = i; j > 0; j--) {
                 if (arr[j] < arr[j - 1]) swap(arr, j, j - 1);
                 else break;
-                ;
             }
         }
     }
@@ -198,16 +196,16 @@ public class ArraySortDemo {
 
     private static void mergeSort(int[] arr, int start, int end) {
         if (start >= end) return;
-        int mid = (start + end) / 2;
-        quickSort(arr, start, mid);
-        quickSort(arr, mid + 1, end);
+        int midIndex = (start + end) / 2;
+        mergeSort(arr, start, midIndex);
+        mergeSort(arr, midIndex + 1, end);
         int[] barr = new int[end - start + 1];
-        int ind = 0, i = start, j = mid + 1;
-        while (i <= mid && j <= end) {
+        int ind = 0, i = start, j = midIndex + 1;
+        while (i <= midIndex && j <= end) {
             if (arr[i] < arr[j]) barr[ind++] = arr[i++];
             else barr[ind++] = arr[j++];
         }
-        while (i <= mid) barr[ind++] = arr[i++];
+        while (i <= midIndex) barr[ind++] = arr[i++];
         while (j <= end) barr[ind++] = arr[j++];
         ind = 0;
         while (start <= end) arr[start++] = barr[ind++];
@@ -217,20 +215,22 @@ public class ArraySortDemo {
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             heapSort(arr, i, arr.length);
         }
-        for (int i = arr.length - 1; i > 0; i--) {
+        for (int i = arr.length - 1; i > 0; ) {
             swap(arr, 0, i);
-            heapSort(arr, 0, i);
+            heapSort(arr, 0, i--);
         }
+
     }
 
     private static void heapSort(int[] arr, int i, int length) {
-        for (int j = (i << 1) + 1; j < length; j = (j << 1) + 1) {
-            if (j + 1 < length && arr[j] < arr[j + 1]) j++;
-            if (arr[i] < arr[j]) {
-                swap(arr, i, j);
-                i = j;
+        for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
+            if (k + 1 < length && arr[k] < arr[k + 1]) k++;
+            if (arr[k] > arr[i]) {
+                swap(arr, k, i);
+                i = k;
             } else break;
         }
+
     }
 
 }

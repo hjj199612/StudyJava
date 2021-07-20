@@ -13,19 +13,21 @@ public class LinkedSortStudy {
     public static ListNode root;
 
     public static class ListNode implements Cloneable {//单链表
-        public int v;
+        public int val;
         public ListNode next;
 
         @Override
         public ListNode clone() {
-            if (root == null) return null;
+            if (root == null)
+                return null;
             ListNode node = new ListNode();
             ListNode clone = node;
             ListNode real = root;
             ListNode last = node;
             while (real != null) {
-                if (node == null) node = new ListNode();
-                node.v = real.v;
+                if (node == null)
+                    node = new ListNode();
+                node.val = real.val;
                 real = real.next;
                 last.next = node;
                 last = node;
@@ -33,17 +35,16 @@ public class LinkedSortStudy {
             }
             return clone;
         }
-
     }
 
     static {
-        int count = (int) ((1 + Math.random()) * 100);
+        int count = (int) ((1 + Math.random()) * 400);
         root = new ListNode();
-        root.v = (int) (Math.random() * 1000);
+        root.val = (int) (Math.random() * 1000);
         ListNode node = root;
         for (int i = 0; i < count - 1; i++) {
             ListNode next = new ListNode();
-            next.v = (int) (Math.random() * 2000);
+            next.val = (int) (Math.random() * 2000);
             node.next = next;
             node = node.next;
         }
@@ -73,12 +74,20 @@ public class LinkedSortStudy {
         System.out.println("选择排序耗时：" + duration.toNanos() + "纳秒");
         printListNodes(selectNode);
 
-
+        //插入排序 时间复杂度O(n2)
+        ListNode insertNode = root.clone();
+        start = LocalDateTime.now();
+        insertNode = insertSort(insertNode);
+        end = LocalDateTime.now();
+        duration = Duration.between(start, end);
+        System.out.println("插入排序耗时：" + duration.toNanos() + "纳秒");
+        printListNodes(insertNode);
     }
 
     public static ListNode mergeSort(ListNode real) {
         ListNode last = real;
-        while (last.next != null) last = last.next;
+        while (last.next != null)
+            last = last.next;
         return mergeSort(real, last);
     }
 
@@ -92,7 +101,7 @@ public class LinkedSortStudy {
         ListNode node1 = mergeSort(start, mid);
         ListNode node2 = mergeSort(midNext, end);
         ListNode newRoot;
-        if (node1.v < node2.v) {
+        if (node1.val < node2.val) {
             newRoot = node1;
             node1 = node1.next;
         } else {
@@ -101,7 +110,7 @@ public class LinkedSortStudy {
         }
         ListNode node = newRoot;
         while (node1 != null && node2 != null) {
-            if (node1.v < node2.v) {
+            if (node1.val < node2.val) {
                 node.next = node1;
                 node1 = node1.next;
             } else {
@@ -110,8 +119,10 @@ public class LinkedSortStudy {
             }
             node = node.next;
         }
-        if (node1 != null) node.next = node1;
-        if (node2 != null) node.next = node2;
+        if (node1 != null)
+            node.next = node1;
+        if (node2 != null)
+            node.next = node2;
         return newRoot;
     }
 
@@ -119,13 +130,13 @@ public class LinkedSortStudy {
         ListNode mid = start, last = start;
         while (last != end) {
             last = last.next;
-            if (last == end) return mid;
+            if (last == end)
+                return mid;
             mid = mid.next;
             last = last.next;
         }
         return mid;
     }
-
 
     public static ListNode selectSort(ListNode real) {
         ListNode newRoot = real;
@@ -133,28 +144,60 @@ public class LinkedSortStudy {
         while (real != null) {
             ListNode max = real;
             ListNode maxLeft = last;
-            ListNode maxRight = real.next;
             ListNode node = real.next;
             ListNode nodeLeft = real;
             while (node != null) {
                 ListNode nodeRight = node.next;
-                if (node.v > max.v) {
+                if (node.val > max.val) {
                     max = node;
                     maxLeft = nodeLeft;
-                    maxRight = nodeRight;
                 }
                 nodeLeft = node;
                 node = nodeRight;
             }
-            if (last == null) last = max;
-            if (real == max) real = real.next;
+            if (last == null)
+                last = max;
+            if (real == max)
+                real = real.next;
             if (maxLeft != null) {
-                maxLeft.next = maxRight;
+                maxLeft.next = max.next;
                 max.next = newRoot;
                 newRoot = max;
             }
         }
         return newRoot;
+    }
+
+    //插入排序
+    public static ListNode insertSort(ListNode head) {
+        if (head == null)
+            return null;
+        ListNode last = head.next;
+        ListNode lastLeft = head;
+        while (last != null) {
+            ListNode node = head;
+            ListNode nodeLeft = null;
+            while (node.val < last.val) {
+                nodeLeft = node;
+                node = node.next;
+            }
+            if (nodeLeft == null) {
+                lastLeft.next = last.next;
+                last.next = node;
+                head = last;
+            } else {
+                if (node != last) {
+                    lastLeft.next = last.next;
+                    last.next = node;
+                    nodeLeft.next = last;
+                    last = lastLeft.next;
+                } else {
+                    lastLeft = last;
+                    last = last.next;
+                }
+            }
+        }
+        return head;
     }
 
     public static void cloneCheck() throws Exception {//确认是深克隆
@@ -170,11 +213,11 @@ public class LinkedSortStudy {
 
     public static void printListNodes(ListNode node) {
         while (node != null) {
-            System.out.print(node.v);
+            System.out.print(node.val);
             node = node.next;
-            if (node != null) System.out.print(" -> ");
+            if (node != null)
+                System.out.print(" -> ");
         }
         System.out.println();
     }
-
 }
