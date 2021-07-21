@@ -5,11 +5,14 @@ package src.leetCode;
  * @date 2021-7-21 8:58
  * 剑指 Offer 52. 两个链表的第一个公共节点
  * 输入两个链表，找出它们的第一个公共节点。
+ *
+ *
  **/
 public class Solution_Offer_52 {
 
     public static void main(String[] args) {
-
+        System.out.println("太浪漫了 两个结点不断的去对方的轨迹中寻找对方的身影，只要二人有交集，就终会相遇❤");
+        System.out.println("我哭了，你们呢");
     }
     // 时间复杂度(n2)
     // public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
