@@ -7,9 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MySpringCloud" />
-        <module name="StudyJava" />
+        <module name="Study-java" />
         <module name="StudySpring" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="StudyJava" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

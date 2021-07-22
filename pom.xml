@@ -12,6 +12,7 @@
         <module>StudySpring</module>
         <module>StudyJava</module>
         <module>MySpringCloud</module>
+        <module>Study-java</module>
     </modules>
 
     <properties>
