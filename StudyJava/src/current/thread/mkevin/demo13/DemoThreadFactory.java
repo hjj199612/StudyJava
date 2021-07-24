@@ -1,6 +1,6 @@
 package current.thread.mkevin.demo13;
 
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.entity.P;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadLocalRandom;

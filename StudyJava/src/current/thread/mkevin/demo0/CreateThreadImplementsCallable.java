@@ -1,6 +1,6 @@
 package current.thread.mkevin.demo0;
 
-import src.current.thread.mkevin.entity.Account;
+import current.thread.mkevin.entity.Account;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

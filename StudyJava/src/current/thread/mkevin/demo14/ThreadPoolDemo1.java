@@ -1,7 +1,7 @@
 package current.thread.mkevin.demo14;
 
 
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.entity.P;
 
 public class ThreadPoolDemo1 {
     public static void main(String[] args) throws InterruptedException {

@@ -1,6 +1,6 @@
 package current.thread.mkevin.demo14;
 
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.entity.P;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

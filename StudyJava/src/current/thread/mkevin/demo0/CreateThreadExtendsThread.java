@@ -1,7 +1,7 @@
 package current.thread.mkevin.demo0;
 
 
-import src.current.thread.mkevin.entity.Account;
+import current.thread.mkevin.entity.Account;
 
 
 public class CreateThreadExtendsThread extends Thread{

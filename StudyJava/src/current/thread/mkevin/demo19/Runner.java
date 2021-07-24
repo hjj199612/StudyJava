@@ -1,6 +1,6 @@
 package current.thread.mkevin.demo19;
 
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.entity.P;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;

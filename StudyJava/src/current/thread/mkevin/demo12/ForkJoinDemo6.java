@@ -1,6 +1,6 @@
 package current.thread.mkevin.demo12;
 
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.entity.P;
 
 import java.util.ArrayList;
 import java.util.List;

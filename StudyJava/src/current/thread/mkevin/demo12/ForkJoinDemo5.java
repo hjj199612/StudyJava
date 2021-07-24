@@ -1,8 +1,8 @@
 package current.thread.mkevin.demo12;
 
-import src.current.thread.mkevin.demo11.Result;
-import src.current.thread.mkevin.demo11.SalaryRunner2;
-import src.current.thread.mkevin.entity.P;
+import current.thread.mkevin.demo11.Result;
+import current.thread.mkevin.demo11.SalaryRunner2;
+import current.thread.mkevin.entity.P;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
