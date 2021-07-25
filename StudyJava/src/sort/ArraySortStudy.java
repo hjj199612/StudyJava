@@ -131,8 +131,7 @@ public class ArraySortStudy {
     public static void bubbleSort(int[] arr) {//冒泡排序
         for (int i = 0; i < arr.length; i++) {
             for (int j = 1; j < arr.length - i; j++) {
-                if (arr[j] < arr[j - 1])
-                    swap(arr, j, j - 1);
+                if (arr[j - 1] > arr[j]) swap(arr, j, j - 1);
             }
         }
     }
@@ -140,10 +139,7 @@ public class ArraySortStudy {
     public static void insertSort(int[] arr) {//插入排序
         for (int i = 1; i < arr.length; i++) {
             for (int j = i; j > 0; j--) {
-                if (arr[j] < arr[j - 1])
-                    swap(arr, j, j - 1);
-                else
-                    break;
+                if (arr[j - 1] > arr[j]) swap(arr, j, j - 1);
             }
         }
     }
@@ -152,8 +148,7 @@ public class ArraySortStudy {
         for (int i = 0; i < arr.length; i++) {
             int minIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[minIndex] > arr[j])
-                    minIndex = j;
+                if (arr[j] < arr[minIndex]) minIndex = j;
             }
             swap(arr, minIndex, i);
         }
@@ -162,7 +157,7 @@ public class ArraySortStudy {
     public static void shellSort(int[] arr) {//希尔排序
         int gap = arr.length / 2;
         while (gap > 0) {
-            for (int i = 0; i < arr.length; i++) {
+            for (int i = gap; i < arr.length; i++) {
                 int preIndex = i - gap;
                 int temp = arr[i];
                 while (preIndex >= 0 && arr[preIndex] > temp) {
@@ -180,18 +175,13 @@ public class ArraySortStudy {
     }
 
     public static void quickSort(int[] arr, int start, int end) {//快速排序递归调用
-        if (start >= end)
-            return;
+        if (start >= end) return;
         int i = start, j = end;
         while (i < j) {
-            while (i < j && arr[i] < arr[end])
-                i++;
-            while (i < j && arr[j] > arr[end])
-                j++;
-            if (i < j && arr[i] == arr[j])
-                i++;
-            else
-                swap(arr, i, j);
+            while (i < j && arr[i] < arr[end]) i++;
+            while (i < j && arr[j] > arr[end]) j++;
+            if (i < j && arr[i] == arr[j]) i++;
+            else swap(arr, i, j);
         }
         quickSort(arr, start, i - 1);
         quickSort(arr, j + 1, end);
@@ -202,29 +192,20 @@ public class ArraySortStudy {
     }
 
     private static void mergeSort(int[] arr, int start, int end) {
-        if (start >= end)
-            return;
+        if (start >= end) return;
         int mid = start + (end - start) / 2;
         mergeSort(arr, start, mid);
         mergeSort(arr, mid + 1, end);
         int[] brr = new int[end - start + 1];
-        int i = start, j = mid + 1, ind = 0;
+        int ind = 0, i = start, j = mid + 1;
         while (i <= mid && j <= end) {
-            if (arr[i] < arr[j]) {
-                brr[ind++] = arr[i++];
-            } else
-                brr[ind++] = arr[j++];
+            if (arr[i] < arr[j]) brr[ind++] = arr[i++];
+            else brr[ind++] = arr[j++];
         }
-        while (i <= mid) {
-            brr[ind++] = arr[i++];
-        }
-        while (j <= end) {
-            brr[ind++] = arr[j++];
-        }
+        while (i <= mid) brr[ind++] = arr[i++];
+        while (j <= end) brr[ind++] = arr[j++];
         ind = 0;
-        while (start <= end) {
-            arr[start++] = brr[ind++];
-        }
+        while (start <= end) arr[start++] = brr[ind++];
     }
 
     public static void heapSort(int[] arr) {//堆排序 时间复杂度O(nlog2n)   空间复杂度O()
@@ -232,20 +213,18 @@ public class ArraySortStudy {
             heapSort(arr, i, arr.length);
         }
         for (int i = arr.length - 1; i > 0; i--) {
-            swap(arr, i, 0);
+            swap(arr, 0, i);
             heapSort(arr, 0, i);
         }
     }
 
     private static void heapSort(int[] arr, int i, int length) {
         for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
-            if (j + 1 < length && arr[j] < arr[j + 1])
-                j++;
+            if (j + 1 < length && arr[j] < arr[j + 1]) j++;
             if (arr[i] < arr[j]) {
                 swap(arr, i, j);
                 i = j;
-            } else
-                break;
+            } else break;
         }
     }
 }
