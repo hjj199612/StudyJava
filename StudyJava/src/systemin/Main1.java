@@ -1,6 +1,6 @@
 package systemin;// import java.util.Scanner;
 //
-// public class systemin.Main {
+// public class systemin.current.thread.pool.Main {
 //
 //     static int sum = 0;
 //
