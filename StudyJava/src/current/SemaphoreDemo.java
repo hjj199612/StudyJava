@@ -7,7 +7,7 @@ import java.util.concurrent.Semaphore;
  * @Author: huangjj24
  * @CreateDate: 2021-1-1 9:50
  **/
-public class test {
+public class SemaphoreDemo {
 
 
     public Semaphore h = new Semaphore(2);

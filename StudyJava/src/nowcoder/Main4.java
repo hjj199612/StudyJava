@@ -1,4 +1,4 @@
-package systemin;// import java.util.Scanner;
+package nowcoder;// import java.util.Scanner;
 //
 // public class systemin.current.thread.pool.Main {
 //
@@ -33,7 +33,7 @@ package systemin;// import java.util.Scanner;
 
 import java.util.Scanner;
 
-public class Main1 {
+public class Main4 {
 
     static int sum = 0;
 

@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * 此类及其迭代器可以实现 Collection 和 Iterator 接口的所有可选 方法。
  * iterator() 方法中提供的迭代器并不 保证以特定的顺序遍历 PriorityBlockingQueue 的元素。
  * 如果需要有序地进行遍历，则应考虑使用 Arrays.sort(pq.toArray())。
- * 此外，可以使用方法 drainTo 按优先级顺序移除 全部或部分元素，并将它们放在另一个 collection 中。
+ * 此外，可以使用方法 drainTo 按优先级顺序移除 全部或部分元素，并将它们放在另一个 functionCoding.collection 中。
  * 在此类上进行的操作不保证具有同等优先级的元素的顺序。如果需要实施某一排序，那么可以定义自定义类或者比较器，比较器可使用修改键断开主优先级值之间的联系。
  * 例如，以下是应用先进先出 (first-in-first-out) 规则断开可比较元素之间联系的一个类。
  * 要使用该类，则需要插入一个新的 FIFOEntry(anEntry) 来替换普通的条目对象。
