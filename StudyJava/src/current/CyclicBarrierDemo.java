@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
  * @Author: huangjj24
  * @CreateDate: 2021-4-8 17:56
  **/
-public class Cycli {
+public class CyclicBarrierDemo {
     // synchronized Cycli(){
     //
     // }

@@ -1,4 +1,4 @@
-package current.thread.pool;
+package current.pool;
 
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;

@@ -1,4 +1,4 @@
-package current.thread.pool;// 必须定义 `ShowMeBug` 入口类和 `public static void main(String[] args)` 入口方法
+package current.lock;// 必须定义 `ShowMeBug` 入口类和 `public static void main(String[] args)` 入口方法
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
