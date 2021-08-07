@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
 
     static Set<List<Integer>> res = new HashSet<>();
-
+//从牧民
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
