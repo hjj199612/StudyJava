@@ -1,8 +1,10 @@
-import java.util.Scanner;
-
+/**
+ * @author hjj199612
+ * @date 2021/8/7 8:18 下午
+ * @description
+ */
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-    }
+
+
 }

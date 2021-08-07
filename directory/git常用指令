@@ -1,0 +1,17 @@
+合并代码：
+rebase：
+git rebase -I dev 可以将dev分支合并到当前分支
+这里的”-i“是指交互模式。就是说你可以干预rebase这个事务的过程，包括设置commit message，暂停commit等等。
+
+git rebase –abort 放弃一次合并
+
+合并多次commit操作:
+1 git rebase -i dev
+2 修改最后几次commit记录中的pick 为squash
+3 保存退出,弹出修改文件,修改commit记录再次保存退出(删除多余的change-id 只保留一个)
+4 git add .
+5 git rebase --continue
+
+
+merge：
+
