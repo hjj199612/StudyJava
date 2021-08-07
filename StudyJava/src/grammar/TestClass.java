@@ -1,4 +1,4 @@
-package language;
+package grammar;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

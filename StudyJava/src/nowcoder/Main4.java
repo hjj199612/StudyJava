@@ -1,6 +1,6 @@
 package nowcoder;// import java.util.Scanner;
 //
-// public class systemin.current.thread.pool.Main {
+// public class systemin.current.thread.pool.grammar.Main {
 //
 //     static int sum = 0;
 //
