@@ -147,13 +147,12 @@ public class LinkedSortStudy {
             ListNode node = real.next;
             ListNode nodeLeft = real;
             while (node != null) {
-                ListNode nodeRight = node.next;
                 if (node.val > max.val) {
                     max = node;
                     maxLeft = nodeLeft;
                 }
                 nodeLeft = node;
-                node = nodeRight;
+                node = node.next;
             }
             if (last == null)
                 last = max;

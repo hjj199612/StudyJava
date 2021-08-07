@@ -129,12 +129,11 @@ public class LinkedSortDemo {
     }
 
     public static ListNode getMiddle(ListNode start, ListNode end) {//返回中间节点
-        ListNode mid = start;
-        ListNode last = start;
-        while (last != null && last.next != null && last != end) {
+        ListNode mid = start, last = start;
+        while (last != end) {
             last = last.next;
-            if (last.next == null || last == end)
-                break;
+            if (last == end)
+                return mid;
             mid = mid.next;
             last = last.next;
         }
@@ -146,19 +145,20 @@ public class LinkedSortDemo {
         ListNode last = null;
         while (real != null) {
             ListNode node = real.next;
-            ListNode nodeLeft = real;
             ListNode max = real;
+            ListNode nodeLeft = real;
             ListNode maxLeft = last;
             while (node != null) {
                 if (node.val > max.val) {
                     max = node;
                     maxLeft = nodeLeft;
                 }
-                nodeLeft = node;
                 node = node.next;
+                nodeLeft = nodeLeft.next;
             }
-            if (last == null)
+            if (last == null) {
                 last = max;
+            }
             if (real == max)
                 real = real.next;
             if (maxLeft != null) {
