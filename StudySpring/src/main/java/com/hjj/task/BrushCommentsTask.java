@@ -121,6 +121,6 @@ public class BrushCommentsTask extends Thread {
     }
 
     public static String getCookie() {
-        return "cookie";
+        return "cookie";//todo
     }
 }
