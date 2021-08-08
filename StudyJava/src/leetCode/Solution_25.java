@@ -1,7 +1,5 @@
 package leetCode;
 
-
-
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -38,35 +36,63 @@ public class Solution_25 {
     }
 
     public static ListNode reverseKGroup(ListNode head, int k) {
-        if (k == 1) return head;
-        int s = k;
-        Deque<ListNode> deque = new LinkedList<>();
         ListNode newHead = new ListNode();
+        newHead.next = head;
         ListNode node = newHead;
         while (head != null) {
-            if (s-- > 0) {
-                deque.push(head);
+            ListNode[] arr = new ListNode[k];
+            boolean flag = false;
+            for (int i = 0; i < k; i++) {
+                arr[i] = head;
                 head = head.next;
-            } else {
-                s = k;
-                while (deque.size() > 0) {
-                    node.next = deque.pop();
-                    node = node.next;
+                if (head == null && i != k - 1) {
+                    flag = true;
+                    break;
                 }
             }
-        }
-        if(deque.size()==k){
-            while (deque.size() > 0) {
-                node.next = deque.pollFirst();
-                node = node.next;
+            if (flag)
+                break;
+            for (int i = 1; i < k; i++) {
+                arr[i].next = arr[i - 1];
             }
-        }else {
-            while (deque.size() > 0) {
-                node.next = deque.pollLast();
-                node = node.next;
-            }
+            arr[0].next = head;
+            node.next = arr[k - 1];
+            node = arr[0];
         }
-        node.next = null;
         return newHead.next;
     }
+
+    // public static ListNode reverseKGroup(ListNode head, int k) {
+    //     if (k == 1)
+    //         return head;
+    //     int s = k;
+    //     Deque<ListNode> deque = new LinkedList<>();
+    //     ListNode newHead = new ListNode();
+    //     ListNode node = newHead;
+    //     while (head != null) {
+    //         if (s-- > 0) {
+    //             deque.push(head);
+    //             head = head.next;
+    //         } else {
+    //             s = k;
+    //             while (deque.size() > 0) {
+    //                 node.next = deque.pop();
+    //                 node = node.next;
+    //             }
+    //         }
+    //     }
+    //     if (deque.size() == k) {
+    //         while (deque.size() > 0) {
+    //             node.next = deque.pollFirst();
+    //             node = node.next;
+    //         }
+    //     } else {
+    //         while (deque.size() > 0) {
+    //             node.next = deque.pollLast();
+    //             node = node.next;
+    //         }
+    //     }
+    //     node.next = null;
+    //     return newHead.next;
+    // }
 }
