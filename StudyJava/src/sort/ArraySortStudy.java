@@ -131,7 +131,7 @@ public class ArraySortStudy {
     public static void bubbleSort(int[] arr) {//冒泡排序
         for (int i = 0; i < arr.length; i++) {
             for (int j = 1; j < arr.length - i; j++) {
-                if (arr[j - 1] > arr[j]) swap(arr, j, j - 1);
+                if (arr[j] < arr[j - 1]) swap(arr, j, j - 1);
             }
         }
     }
@@ -139,7 +139,8 @@ public class ArraySortStudy {
     public static void insertSort(int[] arr) {//插入排序
         for (int i = 1; i < arr.length; i++) {
             for (int j = i; j > 0; j--) {
-                if (arr[j - 1] > arr[j]) swap(arr, j, j - 1);
+                if (arr[j] < arr[j - 1]) swap(arr, j, j - 1);
+                else break;
             }
         }
     }
@@ -150,7 +151,7 @@ public class ArraySortStudy {
             for (int j = i + 1; j < arr.length; j++) {
                 if (arr[j] < arr[minIndex]) minIndex = j;
             }
-            swap(arr, minIndex, i);
+            swap(arr, i, minIndex);
         }
     }
 
@@ -193,19 +194,19 @@ public class ArraySortStudy {
 
     private static void mergeSort(int[] arr, int start, int end) {
         if (start >= end) return;
-        int mid = start + (end - start) / 2;
-        mergeSort(arr, start, mid);
-        mergeSort(arr, mid + 1, end);
+        int minIndex = start + ((end - start) >> 1);
+        mergeSort(arr, start, minIndex);
+        mergeSort(arr, minIndex + 1, end);
         int[] brr = new int[end - start + 1];
-        int ind = 0, i = start, j = mid + 1;
-        while (i <= mid && j <= end) {
-            if (arr[i] < arr[j]) brr[ind++] = arr[i++];
-            else brr[ind++] = arr[j++];
+        int index = 0, i = start, j = minIndex + 1;
+        while (i <= minIndex && j <= end) {
+            if (arr[i] < arr[j]) brr[index++] = arr[i++];
+            else brr[index++] = arr[j++];
         }
-        while (i <= mid) brr[ind++] = arr[i++];
-        while (j <= end) brr[ind++] = arr[j++];
-        ind = 0;
-        while (start <= end) arr[start++] = brr[ind++];
+        while (i <= minIndex) brr[index++] = arr[i++];
+        while (j <= end) brr[index++] = arr[j++];
+        index = 0;
+        while (start <= end) arr[start++] = brr[index++];
     }
 
     public static void heapSort(int[] arr) {//堆排序 时间复杂度O(nlog2n)   空间复杂度O()
@@ -219,11 +220,11 @@ public class ArraySortStudy {
     }
 
     private static void heapSort(int[] arr, int i, int length) {
-        for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
-            if (j + 1 < length && arr[j] < arr[j + 1]) j++;
-            if (arr[i] < arr[j]) {
-                swap(arr, i, j);
-                i = j;
+        for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
+            if (k + 1 < length && arr[k + 1] > arr[k]) k++;
+            if (arr[i] < arr[k]) {
+                swap(arr, i, k);
+                i = k;
             } else break;
         }
     }

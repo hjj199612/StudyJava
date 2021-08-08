@@ -144,10 +144,10 @@ public class LinkedSortDemo {
         ListNode head = real;
         ListNode last = null;
         while (real != null) {
-            ListNode node = real.next;
             ListNode max = real;
-            ListNode nodeLeft = real;
             ListNode maxLeft = last;
+            ListNode nodeLeft = real;
+            ListNode node = nodeLeft.next;
             while (node != null) {
                 if (node.val > max.val) {
                     max = node;
@@ -159,8 +159,9 @@ public class LinkedSortDemo {
             if (last == null) {
                 last = max;
             }
-            if (real == max)
+            if (real == max) {
                 real = real.next;
+            }
             if (maxLeft != null) {
                 maxLeft.next = max.next;
                 max.next = head;
