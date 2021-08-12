@@ -1,0 +1,9 @@
+server:
+  port: 1314
+  servlet:
+    context-path: /hjj
+  tomcat:
+    uri-encoding: UTF-8
+    basedir: /tmp/tomcat
+  shutdown: graceful  #优雅关闭
+

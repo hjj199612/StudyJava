@@ -5,6 +5,10 @@
  */
 public class Main {
 
+    public static void main(String[] args) {
+        Long s = 1000L;
+        System.out.println(s==1000);
+    }
 
 
 }

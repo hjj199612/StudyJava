@@ -15,6 +15,6 @@ public class AppStarter {
    public static void main(String[] args) {
        SpringApplication.run(AppStarter.class, args);
 
-       log.info("#########  供应链  App 启动完成  #########");
+       log.info("#########  SpringBoot 启动成功  #########");
    }
 }
