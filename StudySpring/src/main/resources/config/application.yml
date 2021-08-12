@@ -7,3 +7,7 @@ server:
     basedir: /tmp/tomcat
   shutdown: graceful  #优雅关闭
 
+param:
+  param1: param1
+  param2: param2
+  param3: param3

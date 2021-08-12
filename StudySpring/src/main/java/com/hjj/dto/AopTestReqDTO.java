@@ -1,5 +1,6 @@
 package com.hjj.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +14,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2021-8-12 11:06
  **/
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@ApiModel("消息")
 public class AopTestReqDTO {
 
     @ApiModelProperty(value = "消息内容", required = true)

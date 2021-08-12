@@ -21,7 +21,11 @@ public class Response<T> {
 
     private String msg;
 
-    public static Response getSuccessResp() {
-        return Response.builder().code("0000").msg("").build();
+    public static Response getSuccessResp(Object data) {
+        return Response.builder().data(data).code("0000").msg("").build();
+    }
+
+    public static Response getFailsResp(Throwable throwable) {
+        return Response.builder().code("9999").msg(throwable.getMessage()).build();
     }
 }

@@ -4,6 +4,7 @@ import com.hjj.dto.AopTestReqDTO;
 import com.hjj.dto.AopTestRespDTO;
 import com.hjj.dto.Request;
 import com.hjj.dto.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/aop")
 @Slf4j
+@Api("Aop接口")
 public class AopController {
 
 
@@ -29,6 +31,6 @@ public class AopController {
     public Response<AopTestRespDTO> aopTest(@RequestBody @Valid Request<AopTestReqDTO> request) {
         AopTestReqDTO reqDTO = request.getRequest();
         log.info("调用方法aopTest，入参：" + reqDTO.getMsg());
-        return Response.getSuccessResp();
+        return Response.getSuccessResp(new AopTestRespDTO());
     }
 }

@@ -1,15 +1,14 @@
 package com.hjj.aop;
 
-import com.hjj.dto.Request;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.aspectj.lang.annotation.Aspect;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
@@ -21,9 +20,17 @@ import java.lang.reflect.Parameter;
 @Aspect
 public class LogAspect {
 
+
     static {
         log.info("LogAspect初始化执行静态代码块");
     }
+
+    @Value("${param.param1}")
+    String param1;
+    @Value("${param.param2}")
+    String param2;
+    @Value("${param.param3}")
+    String param3;
 
     @Pointcut("@annotation(com.hjj.aop.Log)")
     public void logAspect() {
@@ -38,7 +45,7 @@ public class LogAspect {
         Parameter[] parameters = ((MethodSignature) pjp.getSignature()).getMethod().getParameters();
         Parameter parameter = parameters[0];
         parameter.getParameterizedType();
-
+        log.info(param1, param2, param3);
         log.info("环绕增强前面");
         pjp.proceed();//切点
         log.info("环绕增强后面");
