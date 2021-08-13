@@ -21,11 +21,25 @@ public class Response<T> {
 
     private String msg;
 
-    public static Response getSuccessResp(Object data) {
-        return Response.builder().data(data).code("0000").msg("").build();
+    public static <T> Response<T> getSuccessResp(T data) {
+        Response<T> build = new Response<>();
+        build.setData(data);
+        build.setCode("0000");
+        build.setMsg("successful");
+        return build;
     }
 
-    public static Response getFailsResp(Throwable throwable) {
-        return Response.builder().code("9999").msg(throwable.getMessage()).build();
+    public static <T> Response<T> getFailsResp(String code, Throwable throwable) {
+        Response<T> build = new Response<>();
+        build.setCode(code);
+        build.setMsg(throwable.getMessage());
+        return build;
+    }
+
+    public static <T> Response<T> getFailsResp(String code, String msg) {
+        Response<T> build = new Response<>();
+        build.setCode(code);
+        build.setMsg(msg);
+        return build;
     }
 }

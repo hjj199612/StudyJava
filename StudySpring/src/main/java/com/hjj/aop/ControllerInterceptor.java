@@ -15,10 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @Aspect
-public class ExceptionAspect {
+public class ControllerInterceptor {
 
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    public void exceptionAspect() {
+    @Pointcut("execution(* com.hjj..*.*(..) ) && " +
+            "(@within(org.springframework.web.bind.annotation.RestController) || " +
+            "@within(org.springframework.stereotype.Controller))")
+    private void exceptionAspect() {
     }
 
     @Around("exceptionAspect()")
@@ -27,7 +29,7 @@ public class ExceptionAspect {
             pjp.proceed();//切点
         } catch (Throwable throwable) {
             log.error(throwable.getMessage());
-            return Response.getFailsResp(throwable);
+            return Response.getFailsResp("9999",throwable);
         }
         return null;
     }
