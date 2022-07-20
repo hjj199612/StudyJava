@@ -160,13 +160,13 @@ public class ArraySortDemo {
         int gap = arr.length / 2;
         while (gap > 0) {
             for (int i = gap; i < arr.length; i++) {
-                int perIndex = i - gap;
+                int preIndex = i - gap;
                 int temp = arr[i];
-                while (perIndex >= 0 && arr[perIndex] > temp) {
-                    arr[perIndex + gap] = arr[perIndex];
-                    perIndex -= gap;
+                while (preIndex >= 0 && arr[preIndex] > temp) {
+                    arr[preIndex + gap] = arr[preIndex];
+                    preIndex -= gap;
                 }
-                arr[perIndex + gap] = temp;
+                arr[preIndex + gap] = temp;
             }
             gap /= 2;
         }

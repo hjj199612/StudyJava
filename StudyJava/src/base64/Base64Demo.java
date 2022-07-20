@@ -15,5 +15,6 @@ public class Base64Demo {
         byte[] cipherText = encoder.encode(plainText.getBytes());
         System.out.println(new String(cipherText));
         System.out.println(new String(decoder.decode(cipherText)));
+        System.out.println("你爸爸");
     }
 }
