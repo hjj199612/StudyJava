@@ -45,7 +45,6 @@ public class ArraySortDemo {
         System.out.println("插入排序耗时:" + duration.toNanos() + "纳秒");
         System.out.println(Arrays.toString(insertArr));
 
-
         //选择排序 时间复杂度O(n2)   空间复杂度O(1)
         int[] selectArr = getArr();
         start = LocalDateTime.now();
@@ -92,7 +91,7 @@ public class ArraySortDemo {
         System.out.println(Arrays.toString(heapArr));
 
         for (int i = 0; i < arr.length; i++) {
-            if (bubbleArr[i] != selectArr[i] && bubbleArr[i] != insertArr[i]) {
+            if (bubbleArr[i] != selectArr[i] || bubbleArr[i] != insertArr[i]) {
                 System.out.println("bubbleArr" + "不对劲");
                 break;
             }
@@ -189,7 +188,6 @@ public class ArraySortDemo {
         quickSort(arr, j + 1, end);
     }
 
-
     public static void mergeSort(int[] arr) {//归并排序 时间复杂度O(nlog2n)   空间复杂度O(n)
         mergeSort(arr, 0, arr.length - 1);
     }
@@ -200,38 +198,35 @@ public class ArraySortDemo {
         mergeSort(arr, start, midIndex);
         mergeSort(arr, midIndex + 1, end);
         int[] barr = new int[end - start + 1];
-        int ind = 0, i = start, j = midIndex + 1;
+        int index = 0, i = start, j = midIndex + 1;
         while (i <= midIndex && j <= end) {
-            if (arr[i] < arr[j]) barr[ind++] = arr[i++];
-            else barr[ind++] = arr[j++];
+            if (arr[i] < arr[j]) barr[index++] = arr[i++];
+            else barr[index++] = arr[j++];
         }
-        while (i <= midIndex) barr[ind++] = arr[i++];
-        while (j <= end) barr[ind++] = arr[j++];
-        ind = 0;
-        while (start <= end) arr[start++] = barr[ind++];
+        while (i <= midIndex) barr[index++] = arr[i++];
+        while (j <= end) barr[index++] = arr[j++];
+        index = 0;
+        while (start <= end) arr[start++] = barr[index++];
     }
 
     public static void heapSort(int[] arr) {//堆排序 时间复杂度O(nlog2n)   空间复杂度O()
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        for (int i = arr.length / 2; i >= 0; i--) {
             heapSort(arr, i, arr.length);
         }
-        for (int i = arr.length - 1; i > 0; ) {
+        for (int i = arr.length - 1; i > 0; i--) {
             swap(arr, 0, i);
-            heapSort(arr, 0, i--);
+            heapSort(arr, 0, i);
         }
-
     }
 
     private static void heapSort(int[] arr, int i, int length) {
         for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
             if (k + 1 < length && arr[k] < arr[k + 1]) k++;
-            if (arr[k] > arr[i]) {
-                swap(arr, k, i);
+            if (arr[i] < arr[k]) {
+                swap(arr, i, k);
                 i = k;
             } else break;
         }
-
     }
-
 }
 
