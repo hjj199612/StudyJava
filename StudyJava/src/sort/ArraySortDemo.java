@@ -181,10 +181,10 @@ public class ArraySortDemo {
         int i = start, j = end;
         while (i < j) {
             while (i < j && arr[i] < arr[end]) i++;
-            while (i < j && arr[j] > arr[end]) j--;
-            if (i < j && arr[i] == arr[j]) i++;
-            else swap(arr, i, j);
+            while (i < j && arr[j] >= arr[end]) j--;
+            if (i < j) swap(arr, i, j);
         }
+        swap(arr, i, end);
         quickSort(arr, start, i - 1);
         quickSort(arr, j + 1, end);
     }

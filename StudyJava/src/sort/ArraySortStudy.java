@@ -149,9 +149,9 @@ public class ArraySortStudy {
         for (int i = 0; i < arr.length; i++) {
             int minIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] < arr[minIndex]) minIndex = j;
+                if (arr[minIndex] > arr[j]) minIndex = j;
             }
-            swap(arr, i, minIndex);
+            swap(arr, minIndex, i);
         }
     }
 
@@ -180,10 +180,10 @@ public class ArraySortStudy {
         int i = start, j = end;
         while (i < j) {
             while (i < j && arr[i] < arr[end]) i++;
-            while (i < j && arr[j] > arr[end]) j++;
-            if (i < j && arr[i] == arr[j]) i++;
-            else swap(arr, i, j);
+            while (i < j && arr[j] >= arr[end]) j--;
+            if (i < j) swap(arr, i, j);
         }
+        swap(arr, i, end);
         quickSort(arr, start, i - 1);
         quickSort(arr, j + 1, end);
     }
@@ -194,23 +194,23 @@ public class ArraySortStudy {
 
     private static void mergeSort(int[] arr, int start, int end) {
         if (start >= end) return;
-        int minIndex = start + ((end - start) >> 1);
+        int minIndex = (start + end) / 2;
         mergeSort(arr, start, minIndex);
         mergeSort(arr, minIndex + 1, end);
-        int[] brr = new int[end - start + 1];
         int index = 0, i = start, j = minIndex + 1;
+        int[] barr = new int[end - start + 1];
         while (i <= minIndex && j <= end) {
-            if (arr[i] < arr[j]) brr[index++] = arr[i++];
-            else brr[index++] = arr[j++];
+            if (arr[i] < arr[j]) barr[index++] = arr[i++];
+            else barr[index++] = arr[j++];
         }
-        while (i <= minIndex) brr[index++] = arr[i++];
-        while (j <= end) brr[index++] = arr[j++];
+        while (i <= minIndex) barr[index++] = arr[i++];
+        while (j <= end) barr[index++] = arr[j++];
         index = 0;
-        while (start <= end) arr[start++] = brr[index++];
+        while (start <= end) arr[start++] = barr[index++];
     }
 
     public static void heapSort(int[] arr) {//堆排序 时间复杂度O(nlog2n)   空间复杂度O()
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        for (int i = arr.length / 2; i >= 0; i--) {
             heapSort(arr, i, arr.length);
         }
         for (int i = arr.length - 1; i > 0; i--) {
@@ -221,7 +221,7 @@ public class ArraySortStudy {
 
     private static void heapSort(int[] arr, int i, int length) {
         for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
-            if (k + 1 < length && arr[k + 1] > arr[k]) k++;
+            if (k + 1 < length && arr[k] < arr[k + 1]) k++;
             if (arr[i] < arr[k]) {
                 swap(arr, i, k);
                 i = k;
