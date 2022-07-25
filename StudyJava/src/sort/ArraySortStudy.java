@@ -134,6 +134,7 @@ public class ArraySortStudy {
                 if (arr[j] < arr[j - 1]) swap(arr, j, j - 1);
             }
         }
+
     }
 
     public static void insertSort(int[] arr) {//插入排序

@@ -12,35 +12,10 @@ public class LinkedSortDemo {
 
     public static ListNode root;
 
-    public static class ListNode implements Cloneable {//单链表
-        public int val;
-        public ListNode next;
-
-        @Override
-        public ListNode clone() {
-            if (root == null)
-                return null;
-            ListNode node = new ListNode();
-            ListNode clone = node;
-            ListNode real = root;
-            ListNode last = node;
-            while (real != null) {
-                if (node == null)
-                    node = new ListNode();
-                node.val = real.val;
-                real = real.next;
-                last.next = node;
-                last = node;
-                node = null;
-            }
-            return clone;
-        }
-    }
-
     static {
-        int count = (int) ((1 + Math.random()) * 1000);
+        int count = (int) ((1 + Math.random()) * 400);
         root = new ListNode();
-        root.val = (int) (Math.random() * 2000);
+        root.val = (int) (Math.random() * 1000);
         ListNode node = root;
         for (int i = 0; i < count - 1; i++) {
             ListNode next = new ListNode();
@@ -48,10 +23,6 @@ public class LinkedSortDemo {
             node.next = next;
             node = node.next;
         }
-        node = new ListNode();
-        node.val = 9999;
-        node.next = root;
-        root = node;
         printListNodes(root);
     }
 
@@ -77,103 +48,149 @@ public class LinkedSortDemo {
         duration = Duration.between(start, end);
         System.out.println("选择排序耗时：" + duration.toNanos() + "纳秒");
         printListNodes(selectNode);
+
+        //插入排序 时间复杂度O(n2)
+        ListNode insertNode = root.clone();
+        start = LocalDateTime.now();
+        insertNode = insertSort(insertNode);
+        end = LocalDateTime.now();
+        duration = Duration.between(start, end);
+        System.out.println("插入排序耗时：" + duration.toNanos() + "纳秒");
+        printListNodes(insertNode);
+
+        //快速排序 时间复杂度O(n*logN)
+        ListNode quickNode = root.clone();
+        start = LocalDateTime.now();
+        quickNode = quickSort(quickNode);
+        end = LocalDateTime.now();
+        duration = Duration.between(start, end);
+        System.out.println("快速排序耗时：" + duration.toNanos() + "纳秒");
+        printListNodes(quickNode);
+
+        check(mergeNode, selectNode, insertNode, quickNode);
     }
 
-    public static ListNode mergeSort(ListNode real) {
-        ListNode last = real;
-        while (last.next != null) {
-            last = last.next;
-        }
-        return mergeSort(real, last);
-    }
-
-    public static ListNode mergeSort(ListNode start, ListNode end) {
-        if (start == end) {
-            start.next = null;
-            return start;
-        }
-        ListNode mid = getMiddle(start, end);
-        ListNode midNext = mid.next;
-        ListNode node1 = mergeSort(start, mid);
-        ListNode node2 = mergeSort(midNext, end);
-        ListNode node = null;
-        ListNode min = null;
-        while (node1 != null && node2 != null) {
-            if (node1.val < node2.val) {
-                if (node == null) {
-                    node = node1;
-                } else {
-                    node.next = node1;
-                    node = node.next;
-                }
-                node1 = node1.next;
+    private static void check(ListNode mergeNode, ListNode selectNode, ListNode insertNode, ListNode quickNode) {
+        while (mergeNode != null && selectNode != null && insertNode != null && quickNode != null) {
+            if (mergeNode.val != selectNode.val || selectNode.val != insertNode.val || insertNode.val != quickNode.val) {
+                System.out.println("不对劲");
+                break;
             } else {
-                if (node == null) {
-                    node = node2;
-                } else {
-                    node.next = node2;
-                    node = node.next;
-                }
-                node2 = node2.next;
+                mergeNode = mergeNode.next;
+                selectNode = selectNode.next;
+                insertNode = insertNode.next;
+                quickNode = quickNode.next;
             }
-            if (min == null)
-                min = node;
         }
-        if (node1 != null) {
-            node.next = node1;
-        }
-        if (node2 != null) {
-            node.next = node2;
-        }
-        return min;
+
     }
 
-    public static ListNode getMiddle(ListNode start, ListNode end) {//返回中间节点
-        ListNode mid = start, last = start;
-        while (last != end) {
-            last = last.next;
-            if (last == end)
-                return mid;
-            mid = mid.next;
-            last = last.next;
+    public static ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode midPre = head, mid = midPre.next, last = mid.next;
+        while (last != null && last.next != null) {
+            midPre = midPre.next;
+            mid = midPre.next;
+            last = last.next.next;
         }
-        return mid;
+        midPre.next = null;
+        ListNode leftHead = mergeSort(head);
+        ListNode rightHead = mergeSort(mid);
+        ListNode newHead = new ListNode(), cur = newHead;
+        while (leftHead != null && rightHead != null) {
+            if (leftHead.val < rightHead.val) {
+                cur.next = leftHead;
+                leftHead = leftHead.next;
+            } else {
+                cur.next = rightHead;
+                rightHead = rightHead.next;
+            }
+            cur = cur.next;
+        }
+        if (leftHead != null) cur.next = leftHead;
+        if (rightHead != null) cur.next = rightHead;
+        return newHead.next;
     }
 
-    public static ListNode selectSort(ListNode real) {
-        ListNode head = real;
-        ListNode last = null;
-        while (real != null) {
-            ListNode max = real;
-            ListNode maxLeft = last;
-            ListNode nodeLeft = real;
-            ListNode node = nodeLeft.next;
+    public static ListNode selectSort(ListNode head) {
+        ListNode cur = head, last = null;
+        while (cur != null) {
+            ListNode max = cur, maxLeft = last, node = cur.next, nodeLeft = cur;
             while (node != null) {
-                if (node.val > max.val) {
+                if (max.val < node.val) {
                     max = node;
                     maxLeft = nodeLeft;
                 }
                 node = node.next;
                 nodeLeft = nodeLeft.next;
             }
-            if (last == null) {
-                last = max;
-            }
-            if (real == max) {
-                real = real.next;
-            }
-            if (maxLeft != null) {
-                maxLeft.next = max.next;
-                max.next = head;
-                head = max;
-            }
+            if (last == null) last = max;
+            if (max == cur) last.next = max.next;
+            else maxLeft.next = max.next;
+            max.next = head;
+            head = max;
+            cur = last.next;
         }
         return head;
     }
 
-    public ListNode insertionSortList(ListNode head) {
-        return null;
+    //插入排序
+    public static ListNode insertSort(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode cur = head.next, curLeft = head;
+        while (cur != null) {
+            ListNode node = head, nodeLeft = null;
+            while (node.val < cur.val) {
+                nodeLeft = node;
+                node = node.next;
+            }
+            if (node == head) {
+                curLeft.next = cur.next;
+                cur.next = head;
+                head = cur;
+            } else if (node == cur) {
+                curLeft = curLeft.next;
+            } else {
+                curLeft.next = cur.next;
+                cur.next = node;
+                nodeLeft.next = cur;
+            }
+            cur = curLeft.next;
+        }
+        return head;
     }
+
+
+    //快速排序
+    public static ListNode quickSort(ListNode head) {
+        ListNode last = head;
+        while (last.next != null) last = last.next;
+        return quickSort(head, last);
+    }
+
+    public static ListNode quickSort(ListNode head, ListNode last) {
+        if (head == null || head.next == null || head == last) return head;
+        ListNode i = head.next, j = head.next, iLeft = head;
+        while (j != last.next) {
+            if (j.val < head.val) {
+                sweep(i, j);
+                i = i.next;
+                iLeft = iLeft.next;
+            }
+            j = j.next;
+        }
+        sweep(head, iLeft);
+        quickSort(head, iLeft);
+        quickSort(i, last);
+        return head;
+    }
+
+    private static void sweep(ListNode i, ListNode j) {
+        int temp = i.val;
+        i.val = j.val;
+        j.val = temp;
+    }
+
 
     public static void cloneCheck() throws Exception {//确认是深克隆
         ListNode real = root.clone();
