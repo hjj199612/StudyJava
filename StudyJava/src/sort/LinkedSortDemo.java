@@ -163,15 +163,9 @@ public class LinkedSortDemo {
 
     //快速排序
     public static ListNode quickSort(ListNode head) {
-        ListNode last = head;
-        while (last.next != null) last = last.next;
-        return quickSort(head, last);
-    }
-
-    public static ListNode quickSort(ListNode head, ListNode last) {
-        if (head == null || head.next == null || head == last) return head;
+        if (head == null || head.next == null) return head;
         ListNode i = head.next, j = head.next, iLeft = head;
-        while (j != last.next) {
+        while (j != null) {
             if (j.val < head.val) {
                 sweep(i, j);
                 i = i.next;
@@ -180,9 +174,13 @@ public class LinkedSortDemo {
             j = j.next;
         }
         sweep(head, iLeft);
-        quickSort(head, iLeft);
-        quickSort(i, last);
-        return head;
+        iLeft.next = null;
+        ListNode leftHead = quickSort(head);
+        ListNode rightHead = quickSort(i);
+        ListNode cur = leftHead;
+        while (cur.next != null) cur = cur.next;
+        cur.next = rightHead;
+        return leftHead;
     }
 
     private static void sweep(ListNode i, ListNode j) {

@@ -125,11 +125,16 @@ public class LinkedSortStudy {
                 nodeLeft = nodeLeft.next;
             }
             if (last == null) last = max;
-            if (max == cur) last.next = max.next;
-            else maxLeft.next = max.next;
-            max.next = head;
-            head = max;
-            cur = last.next;
+            if (max == cur) {
+                last.next = cur.next;
+                cur.next = head;
+                head = cur;
+                cur = last.next;
+            } else {
+                maxLeft.next = max.next;
+                max.next = head;
+                head = max;
+            }
         }
         return head;
     }
@@ -149,7 +154,7 @@ public class LinkedSortStudy {
                 cur.next = head;
                 head = cur;
             } else if (node == cur) {
-                curLeft = cur;
+                curLeft = curLeft.next;
             } else {
                 curLeft.next = cur.next;
                 cur.next = node;
@@ -164,24 +169,23 @@ public class LinkedSortStudy {
     //快速排序
     public static ListNode quickSort(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode i = head.next, j = head.next, iLeft = head, jLeft = head;
+        ListNode i = head.next, j = head.next, iLeft = head;
         while (j != null) {
             if (j.val < head.val) {
                 sweep(i, j);
                 i = i.next;
                 iLeft = iLeft.next;
             }
-            jLeft = jLeft.next;
             j = j.next;
         }
-        sweep(head, iLeft);
+        sweep(head,iLeft);
         iLeft.next = null;
         ListNode leftHead = quickSort(head);
         ListNode rightHead = quickSort(i);
         ListNode cur = leftHead;
         while (cur.next != null) cur = cur.next;
         cur.next = rightHead;
-        return leftHead;
+        return head;
     }
 
     private static void sweep(ListNode i, ListNode j) {
