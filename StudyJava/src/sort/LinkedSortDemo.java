@@ -15,7 +15,7 @@ public class LinkedSortDemo {
     static {
         int count = (int) ((1 + Math.random()) * 400);
         root = new ListNode();
-        root.val = (int) (Math.random() * 1000);
+        root.val = 99999;
         ListNode node = root;
         for (int i = 0; i < count - 1; i++) {
             ListNode next = new ListNode();
@@ -113,6 +113,7 @@ public class LinkedSortDemo {
     }
 
     public static ListNode selectSort(ListNode head) {
+        if (head == null || head.next == null) return head;
         ListNode cur = head, last = null;
         while (cur != null) {
             ListNode max = cur, maxLeft = last, node = cur.next, nodeLeft = cur;
@@ -125,11 +126,19 @@ public class LinkedSortDemo {
                 nodeLeft = nodeLeft.next;
             }
             if (last == null) last = max;
-            if (max == cur) last.next = max.next;
-            else maxLeft.next = max.next;
-            max.next = head;
-            head = max;
-            cur = last.next;
+            if (maxLeft == null) {
+                cur = last.next;
+            } else if (max == cur) {
+                last.next = cur.next;
+                cur.next = head;
+                head = max;
+                cur = last.next;
+            } else {
+                maxLeft.next = max.next;
+                max.next = head;
+                head = max;
+                cur = last.next;
+            }
         }
         return head;
     }

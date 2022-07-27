@@ -15,7 +15,7 @@ public class LinkedSortStudy {
     static {
         int count = (int) ((1 + Math.random()) * 400);
         root = new ListNode();
-        root.val = (int) (Math.random() * 1000);
+        root.val = 99999;
         ListNode node = root;
         for (int i = 0; i < count - 1; i++) {
             ListNode next = new ListNode();
@@ -113,9 +113,10 @@ public class LinkedSortStudy {
     }
 
     public static ListNode selectSort(ListNode head) {
+        if (head == null || head.next == null) return head;
         ListNode cur = head, last = null;
         while (cur != null) {
-            ListNode max = cur, maxLeft = last, node = cur.next, nodeLeft = cur;
+            ListNode node = cur.next, nodeLeft = cur, max = cur, maxLeft = last;
             while (node != null) {
                 if (max.val < node.val) {
                     max = node;
@@ -125,7 +126,9 @@ public class LinkedSortStudy {
                 nodeLeft = nodeLeft.next;
             }
             if (last == null) last = max;
-            if (max == cur) {
+            if (max == head) {
+                cur = last.next;
+            } else if (max == cur) {
                 last.next = cur.next;
                 cur.next = head;
                 head = cur;
@@ -153,14 +156,16 @@ public class LinkedSortStudy {
                 curLeft.next = cur.next;
                 cur.next = head;
                 head = cur;
+                cur = curLeft.next;
             } else if (node == cur) {
+                cur = cur.next;
                 curLeft = curLeft.next;
             } else {
                 curLeft.next = cur.next;
                 cur.next = node;
                 nodeLeft.next = cur;
+                cur = curLeft.next;
             }
-            cur = curLeft.next;
         }
         return head;
     }
@@ -178,14 +183,14 @@ public class LinkedSortStudy {
             }
             j = j.next;
         }
-        sweep(head,iLeft);
         iLeft.next = null;
+        sweep(head, iLeft);
         ListNode leftHead = quickSort(head);
         ListNode rightHead = quickSort(i);
         ListNode cur = leftHead;
         while (cur.next != null) cur = cur.next;
         cur.next = rightHead;
-        return head;
+        return leftHead;
     }
 
     private static void sweep(ListNode i, ListNode j) {
