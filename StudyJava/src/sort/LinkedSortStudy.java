@@ -116,7 +116,7 @@ public class LinkedSortStudy {
         if (head == null || head.next == null) return head;
         ListNode cur = head, last = null;
         while (cur != null) {
-            ListNode node = cur.next, nodeLeft = cur, max = cur, maxLeft = last;
+            ListNode max = cur, maxLeft = last, node = cur.next, nodeLeft = cur;
             while (node != null) {
                 if (max.val < node.val) {
                     max = node;
@@ -129,9 +129,9 @@ public class LinkedSortStudy {
             if (max == head) {
                 cur = last.next;
             } else if (max == cur) {
-                last.next = cur.next;
-                cur.next = head;
-                head = cur;
+                last.next = max.next;
+                max.next = head;
+                head = max;
                 cur = last.next;
             } else {
                 maxLeft.next = max.next;
