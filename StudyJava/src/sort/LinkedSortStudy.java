@@ -127,11 +127,11 @@ public class LinkedSortStudy {
             }
             if (last == null) last = max;
             if (maxLeft == null) {
-                cur = last.next;
-            } else if (max == cur) {
-                last.next = max.next;
-                max.next = head;
-                head = max;
+                cur = cur.next;
+            } else if (cur == max) {
+                last.next = cur.next;
+                cur.next = head;
+                head = cur;
                 cur = last.next;
             } else {
                 maxLeft.next = max.next;
@@ -158,8 +158,8 @@ public class LinkedSortStudy {
                 head = cur;
                 cur = curLeft.next;
             } else if (node == cur) {
-                curLeft = cur;
-                cur = curLeft.next;
+                cur = cur.next;
+                curLeft = curLeft.next;
             } else {
                 curLeft.next = cur.next;
                 cur.next = node;
@@ -183,8 +183,8 @@ public class LinkedSortStudy {
             }
             j = j.next;
         }
-        sweep(head, iLeft);
         iLeft.next = null;
+        sweep(head, iLeft);
         ListNode leftHead = quickSort(head);
         ListNode rightHead = quickSort(i);
         ListNode cur = leftHead;
