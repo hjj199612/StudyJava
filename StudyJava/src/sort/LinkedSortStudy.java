@@ -118,7 +118,7 @@ public class LinkedSortStudy {
         while (cur != null) {
             ListNode max = cur, maxLeft = last, node = cur.next, nodeLeft = cur;
             while (node != null) {
-                if (max.val < node.val) {
+                if (node.val > max.val) {
                     max = node;
                     maxLeft = nodeLeft;
                 }
@@ -157,9 +157,9 @@ public class LinkedSortStudy {
                 cur.next = head;
                 head = cur;
                 cur = curLeft.next;
-            } else if (node == cur) {
+            } else if (cur == node) {
+                curLeft = cur;
                 cur = cur.next;
-                curLeft = curLeft.next;
             } else {
                 curLeft.next = cur.next;
                 cur.next = node;
