@@ -197,8 +197,8 @@ public class ArraySortStudy {
         int midIndex = (start + end) / 2;
         mergeSort(arr, start, midIndex);
         mergeSort(arr, midIndex + 1, end);
-        int[] barr = new int[end - start + 1];
         int index = 0, i = start, j = midIndex + 1;
+        int[] barr = new int[end - start + 1];
         while (i <= midIndex && j <= end) {
             if (arr[i] < arr[j]) barr[index++] = arr[i++];
             else barr[index++] = arr[j++];

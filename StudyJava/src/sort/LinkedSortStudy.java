@@ -129,9 +129,9 @@ public class LinkedSortStudy {
             if (maxLeft == null) {
                 cur = cur.next;
             } else if (max == cur) {
-                last.next = max.next;
-                max.next = head;
-                head = max;
+                last.next = cur.next;
+                cur.next = head;
+                head = cur;
                 cur = last.next;
             } else {
                 maxLeft.next = max.next;
@@ -158,8 +158,8 @@ public class LinkedSortStudy {
                 head = cur;
                 cur = curLeft.next;
             } else if (cur == node) {
-                curLeft = curLeft.next;
                 cur = cur.next;
+                curLeft = curLeft.next;
             } else {
                 curLeft.next = cur.next;
                 cur.next = node;
@@ -183,14 +183,14 @@ public class LinkedSortStudy {
             }
             j = j.next;
         }
-        iPre.next = null;
         sweep(head, iPre);
-        ListNode head1 = quickSort(head);
-        ListNode head2 = quickSort(i);
-        ListNode cur = head1;
+        iPre.next = null;
+        ListNode leftHead = quickSort(head);
+        ListNode rightHead = quickSort(i);
+        ListNode cur = leftHead;
         while (cur.next != null) cur = cur.next;
-        cur.next = head2;
-        return head1;
+        cur.next = rightHead;
+        return leftHead;
     }
 
     private static void sweep(ListNode i, ListNode j) {
