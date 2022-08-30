@@ -194,16 +194,16 @@ public class ArraySortStudy {
 
     private static void mergeSort(int[] arr, int start, int end) {
         if (start >= end) return;
-        int midIndex = (start + end) / 2;
-        mergeSort(arr, start, midIndex);
-        mergeSort(arr, midIndex + 1, end);
-        int index = 0, i = start, j = midIndex + 1;
+        int minIndex = (start + end) / 2;
+        mergeSort(arr, start, minIndex);
+        mergeSort(arr, minIndex + 1, end);
         int[] barr = new int[end - start + 1];
-        while (i <= midIndex && j <= end) {
+        int i = start, j = minIndex + 1, index = 0;
+        while (i <= minIndex && j <= end) {
             if (arr[i] < arr[j]) barr[index++] = arr[i++];
             else barr[index++] = arr[j++];
         }
-        while (i <= midIndex) barr[index++] = arr[i++];
+        while (i <= minIndex) barr[index++] = arr[i++];
         while (j <= end) barr[index++] = arr[j++];
         index = 0;
         while (start <= end) arr[start++] = barr[index++];

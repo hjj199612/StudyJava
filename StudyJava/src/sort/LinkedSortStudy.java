@@ -96,19 +96,19 @@ public class LinkedSortStudy {
         midPre.next = null;
         ListNode leftHead = mergeSort(head);
         ListNode rightHead = mergeSort(mid);
-        ListNode newHead = new ListNode(), cur = newHead;
+        ListNode newHead = new ListNode(), node = newHead;
         while (leftHead != null && rightHead != null) {
             if (leftHead.val < rightHead.val) {
-                cur.next = leftHead;
+                node.next = leftHead;
                 leftHead = leftHead.next;
             } else {
-                cur.next = rightHead;
+                node.next = rightHead;
                 rightHead = rightHead.next;
             }
-            cur = cur.next;
+            node = node.next;
         }
-        if (leftHead != null) cur.next = leftHead;
-        if (rightHead != null) cur.next = rightHead;
+        if (leftHead != null) node.next = leftHead;
+        if (rightHead != null) node.next = rightHead;
         return newHead.next;
     }
 
@@ -128,7 +128,7 @@ public class LinkedSortStudy {
             if (last == null) last = max;
             if (maxLeft == null) {
                 cur = cur.next;
-            } else if (max == cur) {
+            } else if (cur == max) {
                 last.next = cur.next;
                 cur.next = head;
                 head = cur;
@@ -157,7 +157,7 @@ public class LinkedSortStudy {
                 cur.next = head;
                 head = cur;
                 cur = curLeft.next;
-            } else if (cur == node) {
+            } else if (node == cur) {
                 cur = cur.next;
                 curLeft = curLeft.next;
             } else {
@@ -187,9 +187,9 @@ public class LinkedSortStudy {
         iPre.next = null;
         ListNode leftHead = quickSort(head);
         ListNode rightHead = quickSort(i);
-        ListNode cur = leftHead;
-        while (cur.next != null) cur = cur.next;
-        cur.next = rightHead;
+        ListNode node = leftHead;
+        while (node.next != null) node = node.next;
+        node.next = rightHead;
         return leftHead;
     }
 
